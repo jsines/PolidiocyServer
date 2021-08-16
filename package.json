@@ -1,0 +1,18 @@
+{
+  "name": "PolidiocyServer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "mocha"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "json": "^10.0.0",
+    "mocha": "^8.2.1",
+    "socket.io": "^2.3.0"
+  }
+}

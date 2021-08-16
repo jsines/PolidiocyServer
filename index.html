@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Polidiocy</title>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font: 20px Helvetica, Arial; color: white; background: #000; }
+      form { padding: 10px; text-align: center; width: 100%; }
+      form input { border: 0; padding: 10px; width: 90%; margin-right: 0.5%; }
+      form button { width: 9%; background: rgb(100, 200, 20); border: none; padding: 10px; }
+    </style>
+  </head>
+  <body>
+    <form action="">
+      <p> LOBBY CODE </p>
+      <input id="lobbyCode" autocomplete="off"  /><br>
+      <p> NAME </p>
+      <input id="name" autocomplete="off" /><br>
+      <button>Join</button>
+    </form>
+    <p id="responseBox">
+    <!-- SCRIPTS -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script>
+      $(() => {
+        var socket = io("http://127.0.0.1:3000", {
+          query: {
+            type: 'player'
+          }
+        });
+        $('form').submit((e) => {
+          e.preventDefault();
+          var joinRequest = {
+            'lobbyCode': $('#lobbyCode').val(),
+            'name': $('#name').val()
+          }
+          socket.emit('PS_LobbyJoin', joinRequest);
+          return false;
+        });
+        socket.on('SP_LobbyJoinSuccess', (msg) => {
+          document.getElementById('responseBox').innerHTML = msg.success
+        });
+      });
+    </script>
+  </body>
+</html>

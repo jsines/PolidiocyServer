@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Polidiocy Admin</title>
+    <style>
+      
+    </style>
+  </head>
+  <body>
+    <form action="">
+      <button>REQUEST</button>
+    </form>
+    <p id="responseBox"></p>
+    <!-- SCRIPTS -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script>
+      $(() => {
+        var socket = io("http://127.0.0.1:3000", {
+          query: {
+            type: 'host'
+          }
+        });
+        $('form').submit((e) => {
+          e.preventDefault();
+          socket.emit('HS_LobbyCreate');
+          return false;
+        });
+        socket.on('SH_LobbyCreateRes', (msg) => {
+          $('#responseBox').html(msg.lobbyCode);
+        });
+        socket.on('SH_PlayerJoinReq', (msg) => {
+          $('#responseBox').append(`<br> ${msg.name}`);
+        })
+      });
+    </script>
+  </body>
+</html>
